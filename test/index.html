@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>SimpleSocialShare.js</title>
+	<link href="https://fonts.googleapis.com/css?family=Karma" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
+	<style>
+		html {
+			font-size: 16px;
+			line-height: 1.6;
+			font-family: 'Karma', serif;
+		}
+		a {
+			color: black;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		.social {
+			padding: 10px;
+		}
+		.social li {
+			display: block;
+			padding: 5px 0;
+		}
+	</style>
+</head>
+<body>
+	<ul class="social">
+		<li><a href="#" class="js-share-facebook">Facebook</a></li>
+		<li><a href="#" class="js-share-twitter">Twitter</a></li>
+		<li><a href="#" class="js-share-googleplus">Google Plus</a></li>
+		<li><a href="#" class="js-share-email">Email</a></li>
+		<li><a href="#" class="js-share-email" data-subject="Email subject" data-body="This is body text for the email!" data-link="false">Email</a> (with data attributes)</li>
+	</ul>
+	<script src="../src/SimpleSocialShare.js"></script>
+	<script>
+		new SimpleSocialShare({
+			facebook: '.js-share-facebook',
+			twitter: '.js-share-twitter',
+			googleplus: '.js-share-googleplus',
+			email: {
+				selector: '.js-share-email',
+				recipient: 'igor.bumba@degordian.com',
+			}
+		});
+	</script>
+</body>
+</html>
