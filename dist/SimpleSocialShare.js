@@ -37,7 +37,10 @@ var SimpleSocialShare = function () {
 			googleplus: 'https://plus.google.com/share?url='
 		};
 
-		this.initShare();
+		this.initShare(this.defaults.facebook, 'facebook');
+		this.initShare(this.defaults.twitter, 'twitter');
+		this.initShare(this.defaults.googleplus, 'googleplus');
+		this.initShare(this.defaults.email.selector, 'email');
 	}
 
 	// region Getters
@@ -86,35 +89,14 @@ var SimpleSocialShare = function () {
 
 	}, {
 		key: 'initShare',
-		value: function initShare() {
+		value: function initShare(selector, engine) {
 			var _this = this;
 
-			var $facebook = this._getElement(this.defaults.facebook);
-			var $twitter = this._getElement(this.defaults.twitter);
-			var $googleplus = this._getElement(this.defaults.googleplus);
-			var $email = this._getElement(this.defaults.email.selector);
+			var $el = this._getElement(selector);
 
-			if ($facebook.length > 0) {
-				Array.from($facebook).forEach(function (element) {
-					element.addEventListener('click', _this.bindClick.bind(_this, 'facebook'));
-				});
-			}
-
-			if ($twitter.length > 0) {
-				Array.from($twitter).forEach(function (element) {
-					element.addEventListener('click', _this.bindClick.bind(_this, 'twitter'));
-				});
-			}
-
-			if ($googleplus.length > 0) {
-				Array.from($googleplus).forEach(function (element) {
-					element.addEventListener('click', _this.bindClick.bind(_this, 'googleplus'));
-				});
-			}
-
-			if ($email.length > 0) {
-				Array.from($email).forEach(function (element) {
-					element.addEventListener('click', _this.bindClick.bind(_this, 'email'));
+			if ($el.length > 0) {
+				Array.from($el).forEach(function (element) {
+					element.addEventListener('click', _this.bindClick.bind(_this, engine));
 				});
 			}
 		}
