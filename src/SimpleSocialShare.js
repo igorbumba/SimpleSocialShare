@@ -28,17 +28,7 @@ class SimpleSocialShare {
 			googleplus: 'https://plus.google.com/share?url='
 		};
 
-		// INIT FACEBOOK
-		this.initFacebook();
-
-		// INIT TWITTER
-		this.initTwitter();
-
-		// INIT GOOGLE PLUS
-		this.initGooglePlus();
-
-		// INIT EMAIL
-		this.initEmail();
+		this.initShare();
 
 	}
 
@@ -75,120 +65,50 @@ class SimpleSocialShare {
 		return this._shareLink[engine];
 	}
 
-	/**
-	 *
-	 * @returns {NodeListOf<Element>}
-	 */
-	getFacebookElements() {
-		return this._getElement(this.defaults.facebook);
-	}
-
-	/**
-	 *
-	 * @returns {NodeListOf<Element>}
-	 */
-	getTwitterElements() {
-		return this._getElement(this.defaults.twitter);
-	}
-
-	/**
-	 *
-	 * @returns {NodeListOf<Element>}
-	 */
-	getGooglePlusElements() {
-		return this._getElement(this.defaults.googleplus);
-	}
-
-	/**
-	 *
-	 * @returns {NodeListOf<Element>}
-	 */
-	getEmailElements() {
-		return this._getElement(this.defaults.email.selector);
-	}
-
 	// endregion
 
-	// region Facebook
+	// region Share
 
-	/**
-	 *
-	 */
-	initFacebook() {
-		if (this.getFacebookElements().length > 0) {
-			Array.from(this.getFacebookElements()).forEach((element) => {
-				element.addEventListener('click', this.facebookClick.bind(this));
+	initShare() {
+
+		const $facebook = this._getElement(this.defaults.facebook);
+		const $twitter = this._getElement(this.defaults.twitter);
+		const $googleplus = this._getElement(this.defaults.googleplus);
+		const $email = this._getElement(this.defaults.email.selector);
+
+		if ($facebook.length > 0) {
+			Array.from($facebook).forEach((element) => {
+				element.addEventListener('click', this.bindClick.bind(this, 'facebook'));
 			});
 		}
+
+		if ($twitter.length > 0) {
+			Array.from($twitter).forEach((element) => {
+				element.addEventListener('click', this.bindClick.bind(this, 'twitter'));
+			});
+		}
+
+		if ($googleplus.length > 0) {
+			Array.from($googleplus).forEach((element) => {
+				element.addEventListener('click', this.bindClick.bind(this, 'googleplus'));
+			});
+		}
+
+		if ($email.length > 0) {
+			Array.from($email).forEach((element) => {
+				element.addEventListener('click', this.bindClick.bind(this, 'email'));
+			});
+		}
+
 	}
 
 	/**
 	 *
+	 * @param engine
 	 * @param event
 	 */
-	facebookClick(event) {
-		event.preventDefault();
-		window.open(`${this._getShareLink('facebook')}${encodeURIComponent(location.href)}`, '_blank');
-	}
-
-	// endregion
-
-	// region Twitter
-
-	/**
-	 *
-	 */
-	initTwitter() {
-		if (this.getTwitterElements().length > 0) {
-			Array.from(this.getTwitterElements()).forEach((element) => {
-				element.addEventListener('click', this.twitterClick.bind(this));
-			});
-		}
-	}
-
-	/**
-	 *
-	 * @param event
-	 */
-	twitterClick(event) {
-		event.preventDefault();
-		window.open(`${this._getShareLink('twitter')}${encodeURIComponent(location.href)}`, '_blank');
-	}
-
-	// endregion
-
-	// region Google Plus
-
-	/**
-	 *
-	 */
-	initGooglePlus() {
-		if (this.getGooglePlusElements().length > 0) {
-			Array.from(this.getGooglePlusElements()).forEach((element) => {
-				element.addEventListener('click', this.googlePlusClick.bind(this));
-			});
-		}
-	}
-
-	/**
-	 *
-	 * @param event
-	 */
-	googlePlusClick(event) {
-		event.preventDefault();
-		window.open(`${this._getShareLink('googleplus')}${encodeURIComponent(location.href)}`, '_blank');
-	}
-
-	// endregion
-
-	// region Email
-
-	initEmail() {
-		if (this.getEmailElements().length > 0) {
-			Array.from(this.getEmailElements()).forEach((element) => {
-				element.addEventListener('click', this.emailClick.bind(this));
-			});
-		}
+	bindClick(engine, event) {
+		engine === 'email' ? this.emailClick(event) : window.open(`${this._getShareLink(engine)}${encodeURIComponent(location.href)}`, '_blank');
 	}
 
 	/**
