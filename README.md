@@ -1,6 +1,6 @@
-# SimpleSociaShare.js
+# SimpleSocialShare.js
 
-Simple social and email share script without using iframe.
+Simple social and email share script without using an iframe.
 
 Plain JS ES6 with babelized ES5 version using [Babel JS](https://babeljs.io/) compiler.
 
