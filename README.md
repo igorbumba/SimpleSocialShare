@@ -13,8 +13,8 @@ Plain JS ES6 with babelized ES5 version using [Babel JS](https://babeljs.io/) co
 - recipient
 - CC
 - BCC
-- subject
-- body
+- subject (optional page title & URL)
+- body (optional page title & URL)
 
 ## How to use
 
@@ -89,6 +89,10 @@ const emailDataShare = new SimpleSocialShare({
 });
 ```
 
+```HTML
+<a href="#" class="js-share-email" data-recipient="test@test.com" data-subject="This is test email subject" data-cc="test2@test.com" data-bcc="test3@test.com" data-body="This is test email body text">Create new email</a>
+```
+
 Add page URL or page title to the email subject or body text:
 
 ```JS
@@ -117,10 +121,6 @@ const emailShare = new SimpleSocialShare({
         body: '{{PAGE.TITLE}} - Check out this link: {{PAGE.URL}}'
     }
 });
-```
-
-```HTML
-<a href="#" class="js-share-email" data-recipient="test@test.com" data-subject="This is test email subject" data-cc="test2@test.com" data-bcc="test3@test.com" data-body="This is test email body text">Create new email</a>
 ```
 
 ## Contributing

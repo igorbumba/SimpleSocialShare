@@ -152,9 +152,6 @@ var SimpleSocialShare = function () {
 
 					dataset[key] !== undefined ? value = dataset[key] : value;
 
-					value.search("{{PAGE.TITLE}}") >= 0 ? value = value.replace(/{{PAGE.TITLE}}/g, document.title) : value;
-					value.search("{{PAGE.URL}}") >= 0 ? value = value.replace(/{{PAGE.URL}}/g, location.href) : value;
-
 					switch (key) {
 						case 'cc':
 							mailToLink.push('&cc=' + value);
@@ -163,9 +160,11 @@ var SimpleSocialShare = function () {
 							mailToLink.push('&bcc=' + value);
 							break;
 						case 'subject':
+							value = this._pageTitleURL(value);
 							mailToLink.push('&subject=' + encodeURIComponent(value));
 							break;
 						case 'body':
+							value = this._pageTitleURL(value);
 							mailToLink.push('&body=' + encodeURIComponent(value));
 							break;
 						default:
@@ -188,6 +187,21 @@ var SimpleSocialShare = function () {
 			}
 
 			location.href = mailToLink;
+		}
+
+		/**
+   *
+   * @param value {string}
+   * @returns {*}
+   * @private
+   */
+
+	}, {
+		key: '_pageTitleURL',
+		value: function _pageTitleURL(value) {
+			value.search("{{PAGE.TITLE}}") >= 0 ? value = value.replace(/{{PAGE.TITLE}}/g, document.title) : value;
+			value.search("{{PAGE.URL}}") >= 0 ? value = value.replace(/{{PAGE.URL}}/g, location.href) : value;
+			return value;
 		}
 
 		// endregion

@@ -117,9 +117,6 @@ class SimpleSocialShare {
 
 			dataset[key] !== undefined ? value = dataset[key] : value;
 
-			value.search("{{PAGE.TITLE}}") >= 0 ? value = value.replace(/{{PAGE.TITLE}}/g, document.title) : value;
-			value.search("{{PAGE.URL}}") >= 0 ? value = value.replace(/{{PAGE.URL}}/g, location.href) : value;
-
 			switch (key) {
 				case 'cc':
 					mailToLink.push(`&cc=${value}`);
@@ -128,9 +125,11 @@ class SimpleSocialShare {
 					mailToLink.push(`&bcc=${value}`);
 					break;
 				case 'subject':
+					value = this._pageTitleURL(value);
 					mailToLink.push(`&subject=${encodeURIComponent(value)}`);
 					break;
 				case 'body':
+					value = this._pageTitleURL(value);
 					mailToLink.push(`&body=${encodeURIComponent(value)}`);
 					break;
 				default:
@@ -141,6 +140,18 @@ class SimpleSocialShare {
 
 		location.href = mailToLink;
 
+	}
+
+	/**
+	 *
+	 * @param value {string}
+	 * @returns {*}
+	 * @private
+	 */
+	_pageTitleURL(value) {
+		value.search("{{PAGE.TITLE}}") >= 0 ? value = value.replace(/{{PAGE.TITLE}}/g, document.title) : value;
+		value.search("{{PAGE.URL}}") >= 0 ? value = value.replace(/{{PAGE.URL}}/g, location.href) : value;
+		return value;
 	}
 
 	// endregion
