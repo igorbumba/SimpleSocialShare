@@ -25,7 +25,7 @@ new SimpleSocialShare();
 ### Facebook
 
 ```JS
-new SimpleSocialShare({
+const facebookShare = new SimpleSocialShare({
     facebook: '.js-share-facebook'
 });
 ```
@@ -37,7 +37,7 @@ new SimpleSocialShare({
 ### Twitter
 
 ```JS
-new SimpleSocialShare({
+const twitterShare = new SimpleSocialShare({
     twitter: '.js-share-twitter'
 });
 ```
@@ -49,7 +49,7 @@ new SimpleSocialShare({
 ### Google Plus
 
 ```JS
-new SimpleSocialShare({
+const googlePlusShare = new SimpleSocialShare({
     googleplus: '.js-share-googleplus'
 });
 ```
@@ -63,7 +63,7 @@ new SimpleSocialShare({
 Using JavaScript:
 
 ```JS
-new SimpleSocialShare({
+const emailShare = new SimpleSocialShare({
     email: {
         selector: '.js-share-email',
         recipient: 'test@test.com',
@@ -82,9 +82,39 @@ new SimpleSocialShare({
 Using JavaScript and HTML data attributes:
 
 ```JS
-new SimpleSocialShare({
+const emailDataShare = new SimpleSocialShare({
     email: {
         selector: '.js-share-email'
+    }
+});
+```
+
+Add page URL or page title to the email subject or body text:
+
+```JS
+// JS method
+const emailShare = new SimpleSocialShare({
+    email: {
+        selector: '.js-share-email',
+        subject: '{{PAGE.TITLE}}',
+        body: 'Check out this link: {{PAGE.URL}}'
+    }
+});
+```
+
+```HTML
+<!-- HTML DATA ATTRIBUTES --> 
+<a href="#" class="js-share-email" data-subject="{{PAGE.TITLE}}" data-body="Check out this link: {{PAGE.URL}}">Create new email</a>
+```
+
+You can also combine page title and page URL:
+
+```JS
+const emailShare = new SimpleSocialShare({
+    email: {
+        selector: '.js-share-email',
+        subject: '{{PAGE.URL}}',
+        body: '{{PAGE.TITLE}} - Check out this link: {{PAGE.URL}}'
     }
 });
 ```

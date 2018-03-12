@@ -90,6 +90,7 @@ class SimpleSocialShare {
 	 * @param event
 	 */
 	bindClick(engine, event) {
+		event.preventDefault();
 		engine === 'email' ? this.emailClick(event) : window.open(`${this._getShareLink(engine)}${encodeURIComponent(location.href)}`, '_blank');
 	}
 
@@ -98,6 +99,8 @@ class SimpleSocialShare {
 	 * @param event
 	 */
 	emailClick(event) {
+
+		event.preventDefault();
 
 		let mailToLink = ['mailto:'];
 		const dataset = event.currentTarget.dataset;
@@ -113,6 +116,9 @@ class SimpleSocialShare {
 		for (let [key, value] of Object.entries(this.emailDefaults).reverse()) {
 
 			dataset[key] !== undefined ? value = dataset[key] : value;
+
+			value.search("{{PAGE.TITLE}}") >= 0 ? value = value.replace(/{{PAGE.TITLE}}/g, document.title) : value;
+			value.search("{{PAGE.URL}}") >= 0 ? value = value.replace(/{{PAGE.URL}}/g, location.href) : value;
 
 			switch (key) {
 				case 'cc':
